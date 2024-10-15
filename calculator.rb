@@ -1,10 +1,21 @@
 require 'logger'
 
 class Calculator
+
+  LOG_LEVELS = {
+    "DEBUG" => Logger::DEBUG,
+    "INFO" => Logger::INFO,
+    "WARN" => Logger::WARN,
+    "ERROR" => Logger::ERROR
+  }
+
   def initialize
     @operations = []
     @logger = Logger.new('app.log', 10, 1024000)  # Log to file with rotation
-    @logger.level = Logger::INFO
+
+    log_level = ENV['LOG_LEVEL'] || 'INFO'
+    @logger.level = LOG_LEVELS.fetch(log_level, Logger::INFO)
+
     @logger.formatter = proc do |severity, datetime, progname, msg|
       "#{datetime} - #{severity}: #{msg}\n"
     end
