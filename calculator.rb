@@ -29,4 +29,5 @@ end
 calculator = Calculator.new
 puts calculator.square_root(16)  # => 4.0
 puts calculator.square_root(-1)  # => Logs error before raising ArgumentError
+puts calculator.last_operation
 
