@@ -28,7 +28,10 @@ class Calculator
   end
 end
 
-# Running the application with logging
-calculator = Calculator.new
-calculator.square_root(16)  # => 4.0
-calculator.square_root(-1)  # => Logs error before raising ArgumentError
+if $PROGRAM_NAME == __FILE__
+  # Running the application with logging
+  calculator = Calculator.new
+  puts calculator.square_root(16)
+  puts calculator.last_operation
+  puts calculator.square_root(-1) # => Logs error before raising ArgumentError
+end
