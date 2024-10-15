@@ -4,6 +4,7 @@ class Calculator
   def initialize
     @operations = []
     @logger = Logger.new('app.log', 10, 1024000)  # Log to file with rotation
+    @logger.level = Logger::INFO
     @logger.formatter = proc do |severity, datetime, progname, msg|
       "#{datetime} - #{severity}: #{msg}\n"
     end
@@ -26,3 +27,8 @@ class Calculator
     @operations.last
   end
 end
+
+# Running the application with logging
+calculator = Calculator.new
+calculator.square_root(16)  # => 4.0
+calculator.square_root(-1)  # => Logs error before raising ArgumentError
