@@ -3,8 +3,10 @@ require 'logger'
 class Calculator
   def initialize
     @operations = []
-    @logger = Logger.new(STDOUT)  # Log to the console
-    @logger.level = Logger::INFO  # Set default logging level
+    @logger = Logger.new('app.log', 10, 1024000)  # Log to file with rotation
+    @logger.formatter = proc do |severity, datetime, progname, msg|
+      "#{datetime} - #{severity}: #{msg}\n"
+    end
   end
 
   def square_root(number)
@@ -24,10 +26,3 @@ class Calculator
     @operations.last
   end
 end
-
-# Running the application with logging
-calculator = Calculator.new
-puts calculator.square_root(16)  # => 4.0
-puts calculator.square_root(-1)  # => Logs error before raising ArgumentError
-puts calculator.last_operation
-
